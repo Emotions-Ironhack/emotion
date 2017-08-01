@@ -1,12 +1,13 @@
 mongoose = require('mongoose');
-// const User = require("../auth/User");
+const User = require("../auth/User");
 const Emotion = require("./Emotion");
 
 // GET
 exports.listUserEmotionsHistory = function(req, res) {
-  Emotion.findById(res.params.user_id)
+  console.log(req.params.user_id);
+  Emotion.find().exec()
     .then(list => {
-      console.log(list);
+      console.log('LIST',list);
       res.json(list);
     })
     .catch(err => {
@@ -17,12 +18,13 @@ exports.listUserEmotionsHistory = function(req, res) {
 
 /* POST CREATE AND SAVE EMOTION*/
 exports.createEmotion = function(req, res) {
+  console.log(req.file);
 
   const newEmotion = new Emotion({
-    userRef: req.body.userRef, // res.params.user_id ???¿??¿
+    userRef: req.params.user_id,
     emotions: req.body.emotions,
     maxEmotion: req.body.maxEmotion,
-    image_path: `/uploads/${req.file.filename}` || ''
+    image_path: '', //`/uploads/${req.file.filename}` || ''
 
   });
 
