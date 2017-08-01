@@ -14,7 +14,7 @@ exports.listUser= function(req, res, next){
 };
 
 exports.signUp = function(req, res, next) {
-  let username     = req.body.username;
+  let username = req.body.username;
   let email    = req.body.email;
   let password = req.body.password;
 

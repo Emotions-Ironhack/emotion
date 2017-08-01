@@ -9,6 +9,7 @@ export class LoginFormComponent implements OnInit {
   error: string;
   username:string;
   password:string;
+  email:string;
   constructor(private session: SessionService) { }
   ngOnInit() {
   }
@@ -22,7 +23,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   signup() {
-    this.session.signup(this.username, this.password)
+    this.session.signup(this.username, this.password, this.email)
       .subscribe(
         (user) => console.log(user),
         (err) => this.error = err

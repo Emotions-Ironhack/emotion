@@ -32,8 +32,9 @@ export class SessionService {
     return Observable.throw(e.json().message);
   }
 
-  signup(username:string, password:string):Observable<User> {
-    return this.http.post(`${this.BASE_URL}/signup`, {username,password}, this.options)
+  signup(username:string, password:string, email:string):Observable<User> {
+    console.log("Nuevo usuario");
+    return this.http.post(`${this.BASE_URL}/signup`, {username,password,email}, this.options)
       .map(res => res.json())
       .catch(this.handleError);
   }
@@ -42,6 +43,7 @@ export class SessionService {
     return this.http.post(`${this.BASE_URL}/login`, {username,password}, this.options)
       .map(res => {
         this.user = res.json();
+        console.log("Hola");
         return this.user;
       })
       .catch(this.handleError);
@@ -52,6 +54,7 @@ export class SessionService {
       .map(res => {
         res.json();
         this.user = undefined;
+        console.log("Adios");
       })
       .catch(this.handleError);
   }
