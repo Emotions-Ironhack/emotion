@@ -66,8 +66,7 @@ passportLocalStrategy(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
-const authRoutes = require('./routes/auth');
-app.use('/api/auth', authRoutes);
+require('./routes')(app);
 
 app.use((req, res, next) => {
   res.sendfile(__dirname + '/public/index.html');
