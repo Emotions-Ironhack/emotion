@@ -1,4 +1,4 @@
-function vision(urlImage) {
+module.exports = function vision(urlImage) {
 
   var request = require('request');
 
@@ -24,4 +24,4 @@ function vision(urlImage) {
 
   request(options, callback);
 
-}
+};
