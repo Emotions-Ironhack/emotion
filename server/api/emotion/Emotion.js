@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const emotionSchema = new Schema({
   userRef : { type: Schema.Types.ObjectId, ref: 'User' },
-  emotions : { type: Array, default: [] },
+  emotions : { type: Object, default: {} },
   maxEmotion: { type: Object },
   image_path : { type: String }
 });

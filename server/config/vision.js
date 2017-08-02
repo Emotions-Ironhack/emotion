@@ -1,4 +1,4 @@
-module.exports = function vision(urlImage) {
+module.exports = function(urlImage) {
 
   var request = require('request');
 
@@ -13,15 +13,13 @@ module.exports = function vision(urlImage) {
     body: "{'url': '"+urlImage+"' }",
     headers: headers,
   };
-  console.log(options.body);
 
-  function callback(error, response, body) {
-    console.log(body);
-    if (!error && response.statusCode == 200) {
-      console.log(body);
-    }
-  }
-
-  request(options, callback);
-
+  request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var obj = JSON.parse(body);
+        console.log(obj,'dsasda');
+      }else{
+        console.log('ERROR: ',error);
+      }
+    });
 };
