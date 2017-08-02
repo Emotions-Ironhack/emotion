@@ -1,6 +1,7 @@
 mongoose = require('mongoose');
 const User = require("../auth/User");
 const Emotion = require("./Emotion");
+const visionService = require('../config/vision');
 
 // GET
 exports.listUserEmotionsHistory = function(req, res) {
@@ -17,23 +18,31 @@ exports.listUserEmotionsHistory = function(req, res) {
     });
 };
 
+function getMaxEmotion(scores){
+   for(let i=0; i < scores.length; i++){
+
+   }
+}
+
 // POST to VISION API an return DATA
 /* AND THEN CREATE AND SAVE EMOTION*/
 exports.createEmotion = function(req, res) {
 
   // 1 - Image from client
-  let urlimage = '{"url": "https://i.blogs.es/ceed5d/cara-delevigne-para-moschino/400_300.jpg"}';
+  let urlimage = "https://i.blogs.es/ceed5d/cara-delevigne-para-moschino/400_300.jpg";
 
  // 2 - Call to API Vision
+ // let resp = visionService.vision();
+
+  // 2.1 getMaxEmotion()
 
 
-// 3 - Create new Emotion and save
-
+ // 3 - Create new Emotion and save
 
   const newEmotion = new Emotion({
     userRef: req.params.user_id,
-    emotions: req.body.emotions,
-    maxEmotion: req.body.maxEmotion,
+    emotions: resp.scores,
+    maxEmotion: maxEmotion,
     image_path: '', //`/uploads/${req.file.filename}` || ''
 
   });
