@@ -1,10 +1,10 @@
 mongoose = require('mongoose');
 const Recommendation = require("./Recommendation");
-const Emotion = require("../emotion/Emotion");
 
 // GET
 exports.listUserRecommendations = function(req, res) {
-  Recommendation.findById(res.params.user_id)
+  var id = req.params.emotion_id;
+  Recommendation.find({RecommendationRef : id})
     .then(list => {
       res.json(list);
     })
@@ -14,23 +14,21 @@ exports.listUserRecommendations = function(req, res) {
 };
 
 
-/* POST CREATE AND SAVE EMOTION*/
-exports.createEmotion = function(req, res) {
+/* POST CREATE AND SAVE Recommendation*/
+exports.createRecommendation = function(req, res) {
 
-  const newEmotion = new Emotion({
-    userRef: req.body.userRef, // res.params.user_id ???¿??¿
-    emotions: req.body.emotions,
-    maxEmotion: req.body.maxEmotion,
-    image_path: `/uploads/${req.file.filename}` || ''
+  const newRecommendation = new Recommendation({
+    emotionRef: req.params.emotion_id,
+    Recommendations: req.body.recommendations
 
   });
 
-  newEmotion.save()
-    .then(emotion => {
-      console.log(`New emotion User created! ID:${emotion._id}`);
+  newRecommendation.save()
+    .then(Recommendation => {
+      console.log(`New Recommendation User created! ID:${recommendation._id}`);
       res.status(200).json({
-        message: 'New emotion has been created!',
-        id: emotion._id
+        message: 'New Recommendation has been created!',
+        id: Recommendation._id
       });
     })
     .catch(e => res.status(500).json(e));
