@@ -20,15 +20,15 @@ exports.getMaxEmotion = function (objScores) {
 };
 
 // Create new Emotion and save
-exports.saveEmotion = function (req, res, newEmotion) {
+exports.saveEmotion = function (response, newEmotion) {
 
   newEmotion.save()
     .then(emotion => {
       console.log(`New emotion User created! ID:${emotion._id}`);
-      res.status(200).json({
+      response.status(200).json({
         message: 'New emotion has been created!',
         id: emotion._id
       });
     })
-    .catch(e => res.status(500).json(e));
+    .catch(e => response.status(500).json(e));
 };

@@ -44,6 +44,6 @@ exports.createEmotion = function(req, res) {
       image_path: urlImage
     });
 
-    emotionAux.saveEmotion(req, res, newEmotion);
+    emotionAux.saveEmotion(res, newEmotion);
   }).catch( err => console.log('Error visionPromise: ',err));
 };
