@@ -3,8 +3,8 @@ const Recommendation = require("./Recommendation");
 
 // GET
 exports.listUserRecommendations = function(req, res) {
-  // var id = req.params.emotion_id;
-  Recommendation.find({RecommendationRef : id})
+
+  Recommendation.find({emotionRef : id})
     .then(list => {
       res.json(list);
     })

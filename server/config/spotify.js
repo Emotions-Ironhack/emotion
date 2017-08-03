@@ -1,4 +1,4 @@
-module.exports = function spotify() {
+module.exports = function spotify(urlParams) {
 
 var request = require('request');
 
@@ -8,17 +8,27 @@ var headers = {
 };
 
 var options = {
-  url: 'https://api.spotify.com/v1/recommendations?min_energy=0.4&market=US&seed_tracks=0c6xIDDpzE81m2q797ordA&seed_artists=4NHQUGzhtTLFvgF5SZesLK&min_popularity=50',
+  url: 'https://api.spotify.com/v1/recommendations?min_energy=&market=US&seed_tracks=0c6xIDDpzE81m2q797ordA&seed_artists=4NHQUGzhtTLFvgF5SZesLK&min_popularity=50',
+  // url: 'https://api.spotify.com/v1/recommendations?min_energy=0.4&market=US&seed_tracks=0c6xIDDpzE81m2q797ordA&seed_artists=4NHQUGzhtTLFvgF5SZesLK&min_popularity=50',
   headers: headers
 };
 
-function callback(error, response, body) {
-  console.log(response);
-  if (!error && response.statusCode == 200) {
-    console.log(body);
-  }
-}
+let requestRecomm = new Promise((resolve, reject) => {
+  request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var obj = JSON.parse(body);
+        resolve(obj);
+      }else{
+        reject( err => console.log('ERROR reject in request RECOMMENDATION promise: ', err));
+        console.log('ERROR: ',error);
+      }
+    });
+});
 
-request(options, callback);
+// It is neccessary RETURN the resolve of the Promise
+return requestRecomm.then(obj => {
+    return obj;
+});
+
 
 };
