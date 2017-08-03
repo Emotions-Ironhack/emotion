@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FileUploader} from "ng2-file-upload";
+import { FileUploader } from "ng2-file-upload";
+import { Router } from '@angular/router';
+import {environment} from '../../environments/environment';
+
+// const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+const URL = `${environment.BASE_URL}/api/emotion/`;
 
 @Component({
   selector: 'app-add-photo-emotion',
@@ -7,33 +12,21 @@ import { FileUploader} from "ng2-file-upload";
   styleUrls: ['./add-photo-emotion.component.css']
 })
 export class AddPhotoEmotionComponent implements OnInit {
+  newImage = {
+    name: ''
+  };
+  feedback: string;
 
-  feedback : string;
-
-  uploader: FileUploader = new FileUploader({
-    url: 'http://localhost:3000/api/emotion/new'
+  public uploader: FileUploader = new FileUploader({
+    url: URL
   });
-
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit() {
-    this.uploader.onSuccessItem = (item, response) => {
-      this.feedback = JSON.parse(response).message;
-    };
+  }
 
-    this.uploader.onErrorItem = (item, response, status, headers) => {
-      this.feedback = JSON.parse(response).message;
-    };
-
-}
-
-submit() {
-  this.uploader.onBuildItemForm = (item, form) => {
-    console.log("TO FLAMA");
-
-  };
-  this.uploader.uploadAll();
-  console.log("TO FLAMA AL CUBO")
-}
+  // submit() {
+  //   this.uploader.uploadAll();
+  // }
 
 }

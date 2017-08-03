@@ -1,16 +1,10 @@
 <h1> Sense To Music Converter </h1>
 
-
-<form enctype="multipart/form-data">
-
+<form>
   <div>
-    <input type="file" name="file" id="file" ng2FileSelect [uploader]="uploader" />
+    <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
   </div>
-
-  <div>
-    <button (click)="submit()">Submit</button>
-  </div>
-
-
+  <br>
+  <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">Upload all</button>
+  <br>
 </form>
-<p>{{feedback}}</p>

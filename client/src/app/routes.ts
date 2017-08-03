@@ -17,6 +17,6 @@ export const routes: Routes = [
           { path: 'signup', component: SignupComponent },
         ]
     },
-    { path: 'new', component: AddPhotoEmotionComponent },
+    { path: 'new', component: AddPhotoEmotionComponent, canActivate: [LoggedInService] },
     { path: '**', redirectTo: '' }
 ];
