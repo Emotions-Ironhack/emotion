@@ -9,7 +9,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import {routes} from './routes';
 // Route Guard
-import { LoggedInService } from '../services/loggein.service';
+import { LoggedInService } from '../services/loggedin.service';
 
 import { LoginFormComponent } from './login-form/login-form.component';
 import { FileSelectDirective } from "ng2-file-upload";

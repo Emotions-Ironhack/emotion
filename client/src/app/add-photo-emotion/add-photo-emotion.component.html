@@ -1,3 +1,16 @@
-<p>
-  add-photo-emotion works!
-</p>
+<h1> Sense To Music Converter </h1>
+
+
+<form enctype="multipart/form-data">
+
+  <div>
+    <input type="file" name="file" id="file" ng2FileSelect [uploader]="uploader" />
+  </div>
+
+  <div>
+    <button (click)="submit()">Submit</button>
+  </div>
+
+
+</form>
+<p>{{feedback}}</p>
