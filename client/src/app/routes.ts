@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { LoggedInService } from '../services/loggein.service';
+import { LoggedInService } from '../services/loggedin.service';
 
 import { UserComponent} from './user/user.component';
 import { HomeComponent} from './home/home.component';
@@ -17,6 +17,6 @@ export const routes: Routes = [
           { path: 'signup', component: SignupComponent },
         ]
     },
-    { path: 'new', component: AddPhotoEmotionComponent, canActivate: [ LoggedInService ] },
+    { path: 'new', component: AddPhotoEmotionComponent },
     { path: '**', redirectTo: '' }
 ];
