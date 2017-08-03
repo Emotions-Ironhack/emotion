@@ -14,12 +14,21 @@ module.exports = function(urlImage) {
     headers: headers,
   };
 
-  request(options, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        var obj = JSON.parse(body);
-        console.log(obj,'dsasda');
-      }else{
-        console.log('ERROR: ',error);
-      }
-    });
+  let requestEmotion = new Promise((resolve, reject) => {
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          var obj = JSON.parse(body);
+          resolve(obj);
+        }else{
+          reject( err => console.log('ERROR reject in requestEmotion promise: ', err));
+          console.log('ERROR: ',error);
+        }
+      });
+  });
+
+  // It is neccessary RETURN the resolve of the Promise
+  return requestEmotion.then(obj => {
+      return obj;
+  });
+
 };
