@@ -8,11 +8,18 @@ import { HttpModule } from '@angular/http';
 // Routes
 import { RouterModule } from '@angular/router';
 import {routes} from './routes';
+// Route Guard
+import { LoggedInService } from '../services/loggein.service';
 
 import { LoginFormComponent } from './login-form/login-form.component';
 import { FileSelectDirective } from "ng2-file-upload";
 import { AddPhotoEmotionComponent } from './add-photo-emotion/add-photo-emotion.component';
 import { EmotionListComponent } from './emotion-list/emotion-list.component';
+import { SignupComponent } from './signup/signup.component';
+import { UserComponent } from './user/user.component';
+import { HomeComponent } from './home/home.component';
+
+
 
 @NgModule({
   declarations: [
@@ -20,7 +27,10 @@ import { EmotionListComponent } from './emotion-list/emotion-list.component';
     LoginFormComponent,
     FileSelectDirective,
     AddPhotoEmotionComponent,
-    EmotionListComponent
+    EmotionListComponent,
+    SignupComponent,
+    UserComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +38,7 @@ import { EmotionListComponent } from './emotion-list/emotion-list.component';
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [SessionService],
+  providers: [SessionService, LoggedInService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

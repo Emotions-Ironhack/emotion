@@ -7,27 +7,28 @@ import { SessionService } from '../../services/session.service';
 })
 export class LoginFormComponent implements OnInit {
   error: string;
-  username:string;
-  password:string;
-  email:string;
+  username: string;
+  password: string;
+
   constructor(private session: SessionService) { }
-  ngOnInit() {
-  }
+
+  ngOnInit() { }
 
   login() {
-    this.session.login(this.username,this.password)
+    this.session.login(this.username, this.password)
       .subscribe(
-        (user) => console.log(user),
-        (err) => this.error = err
+      (user) => { console.log(user);},
+      (err) => this.error = err
       );
   }
+  errorCb(err) {
+    this.error = err;
+    this.username = null;
+  }
 
-  signup() {
-    this.session.signup(this.username, this.password, this.email)
-      .subscribe(
-        (user) => console.log(user),
-        (err) => this.error = err
-      );
+  successCb(user) {
+    this.username = user;
+    this.error = null;
   }
 
 }
