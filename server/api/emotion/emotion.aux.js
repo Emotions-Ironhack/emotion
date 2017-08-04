@@ -9,13 +9,11 @@ exports.getMaxEmotion = function (objScores) {
   };
 
   for (let i = 0; i < scoresArr.length - 1; i++) {
-    console.log(scoresArr[i][1]);
     if (scoresArr[i][1] > maxEmotion.score) {
       maxEmotion.name = scoresArr[i][0];
       maxEmotion.score = scoresArr[i][1];
     }
   }
-  console.log('maxEmotion is: ', maxEmotion);
   return maxEmotion;
 };
 

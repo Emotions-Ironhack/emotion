@@ -2,6 +2,7 @@ const User = require("../auth/User");
 const Emotion = require("./Emotion");
 const visionService = require('../../config/vision');
 const emotionAux = require('./emotion.aux');
+const upload = require('../../config/multerService');
 
 // GET
 exports.listUserEmotionsHistory = function(req, res) {
@@ -10,39 +11,78 @@ exports.listUserEmotionsHistory = function(req, res) {
       userRef: id
     }).exec()
     .then(list => {
-      console.log('LIST', list);
       res.json(list);
+    }).catch(err => {
+      res.status(500).json(err);
     });
-    // .catch(err => {
-    //   res.status(500).json(err);
-    // });
 };
+
 
 // POST to VISION API -> THEN CREATE AND SAVE EMOTION */
 exports.createEmotion = function(req, res) {
-  console.log(req.file);
-  return;
-  // 1 - Image from client
-  let urlImage = "https://i.blogs.es/ceed5d/cara-delevigne-para-moschino/400_300.jpg";
+
+  // function uploadTotal() {
+    let requestUpload = new Promise((resolve, reject) => {
+      upload(req, res, function(err) {
+
+        let infoImage = {};
+        if (req.body.userRef) infoImage.userRef = req.body.userRef;
+
+        if (req.file.filename) {
+
+          // check if url is localhost
+          if(req.get('host').includes('localhost'))
+            infoImage.url = 'http://marioms.com/scarlet2.jpg';
+          else
+            infoImage.url = req.file.filename;
+
+          resolve(infoImage);
+
+        } else {
+          reject( err => {
+            console.loog(err);
+            infoImage.url = "http://marioms.com/scarlet2.jpg";
+            return infoImage;
+          });
+        }
+
+      });
+
+    }); // end promise
 
   // 2 - Call to API Vision
   let visionPromise = new Promise((resolve, reject) => {
-    let objEmotion = visionService(urlImage);
-    resolve(objEmotion);
+
+    // upload image THEN
+    requestUpload.then( infoImage => {
+
+      console.log('INFOIMAGE',infoImage);
+      // let objEmotion = {};
+      // objEmotion.scores = {};
+      // objEmotion.imageURL = infoImage.url;
+      // objEmotion.userRef = infoImage.userRef;
+      let objEmotion = visionService(infoImage.url, infoImage.userRef);
+
+      resolve(objEmotion);
+    });
   });
 
   // 3 - Create new emotion
-  visionPromise.then( obj => {
+  visionPromise.then( objEmotion => {
 
-    let maxEmotionObj = emotionAux.getMaxEmotion(obj[0].scores);
+    console.log('object',objEmotion);
+
+    let maxEmotionObj = emotionAux.getMaxEmotion(objEmotion[0].scores);
 
     const newEmotion = new Emotion({
-      userRef: '',
-      emotions: obj[0].scores,
+      userRef: objEmotion.userRef,
+      emotions: objEmotion[0].scores,
       maxEmotion: maxEmotionObj,
-      image_path: urlImage
+      image_path: objEmotion.imageURL
     });
+    console.log('NEW EMOTION',newEmotion);
 
     emotionAux.saveEmotion(res, newEmotion);
-  }).catch( err => console.log('Error visionPromise: ',err));
+  }).catch(err => console.log('Error visionPromise: ', err));
+
 };
