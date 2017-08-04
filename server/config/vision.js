@@ -21,7 +21,6 @@ module.exports = function(urlImage) {
           resolve(obj);
         }else{
           reject( err => console.log('ERROR reject in requestEmotion promise: ', err));
-          console.log('ERROR: ',error);
         }
       });
   });

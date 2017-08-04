@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import {environment} from '../../environments/environment';
 
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
-const URL = `${environment.BASE_URL}/api/emotion/`;
+const URL = `${environment.BASE_URL}/api/emotion/new`;
 
 @Component({
   selector: 'app-add-photo-emotion',

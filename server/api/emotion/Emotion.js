@@ -8,15 +8,4 @@ const emotionSchema = new Schema({
   image_path : { type: String }
 });
 
-// // Initialize virtual schema
-// emotionSchema.set('toJSON', { virtuals: true });
-//
-// // Create new virtual schema
-// emotionSchema.virtual('imageURL').get(function() {  // imageURL is the attr name in the form
-//   if(this.image.includes('http')){
-//     return this.image;
-//   }
-//   return `http://localhost:3000${this.image}`;
-// });
-
 module.exports = mongoose.model('Emotion', emotionSchema);
