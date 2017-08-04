@@ -18,21 +18,32 @@ exports.listUserEmotionsHistory = function(req, res) {
 };
 
 
-
 // POST to VISION API -> THEN CREATE AND SAVE EMOTION */
 exports.createEmotion = function(req, res) {
 
   // function uploadTotal() {
     let requestUpload = new Promise((resolve, reject) => {
       upload(req, res, function(err) {
-        console.log(req.file);
+
+        let infoImage = {};
+        if (req.body.userRef) infoImage.userRef = req.body.userRef;
+
         if (req.file.filename) {
-          urlImage = 'https://i.blogs.es/ceed5d/cara-delevigne-para-moschino/400_300.jpg';
-          resolve(urlImage);
+
+          // check if url is localhost
+          if(req.get('host').includes('localhost'))
+            infoImage.url = 'http://marioms.com/scarlet2.jpg';
+          else
+            infoImage.url = req.file.filename;
+
+          resolve(infoImage);
+
         } else {
-          // reject( err => { urlImage = "https://i.blogs.es/ceed5d/cara-delevigne-para-moschino/400_300.jpg";
-          //   return urlImage;
-          // });
+          reject( err => {
+            console.loog(err);
+            infoImage.url = "http://marioms.com/scarlet2.jpg";
+            return infoImage;
+          });
         }
 
       });
@@ -43,22 +54,33 @@ exports.createEmotion = function(req, res) {
   let visionPromise = new Promise((resolve, reject) => {
 
     // upload image THEN
-    requestUpload.then( urlImage => {
-      let objEmotion = visionService(urlImage);
+    requestUpload.then( infoImage => {
+
+      console.log('INFOIMAGE',infoImage);
+      // let objEmotion = {};
+      // objEmotion.scores = {};
+      // objEmotion.imageURL = infoImage.url;
+      // objEmotion.userRef = infoImage.userRef;
+      let objEmotion = visionService(infoImage.url, infoImage.userRef);
+
       resolve(objEmotion);
     });
   });
 
   // 3 - Create new emotion
-  visionPromise.then(obj => {
-    let maxEmotionObj = emotionAux.getMaxEmotion(obj[0].scores);
+  visionPromise.then( objEmotion => {
+
+    console.log('object',objEmotion);
+
+    let maxEmotionObj = emotionAux.getMaxEmotion(objEmotion[0].scores);
 
     const newEmotion = new Emotion({
-      // userRef: '',
-      emotions: obj[0].scores,
+      userRef: objEmotion.userRef,
+      emotions: objEmotion[0].scores,
       maxEmotion: maxEmotionObj,
-      image_path: ''
+      image_path: objEmotion.imageURL
     });
+    console.log('NEW EMOTION',newEmotion);
 
     emotionAux.saveEmotion(res, newEmotion);
   }).catch(err => console.log('Error visionPromise: ', err));

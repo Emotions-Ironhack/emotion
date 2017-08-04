@@ -6,6 +6,11 @@ const emotionSchema = new Schema({
   emotions : { type: Object, default: {} },
   maxEmotion: { type: Object },
   image_path : { type: String }
+}, {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at'
+   }
 });
 
 module.exports = mongoose.model('Emotion', emotionSchema);

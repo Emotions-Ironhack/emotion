@@ -5,6 +5,6 @@
     <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
   </div>
   <br>
-  <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">Upload all</button>
+  <button type="button" (click)="submit()" [disabled]="!uploader.getNotUploadedItems().length">Upload all</button>
   <br>
 </form>

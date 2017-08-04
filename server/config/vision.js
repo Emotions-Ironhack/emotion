@@ -1,4 +1,4 @@
-module.exports = function(urlImage) {
+module.exports = function(urlImage,userRef) {
 
   var request = require('request');
 
@@ -26,7 +26,9 @@ module.exports = function(urlImage) {
   });
 
   // It is neccessary RETURN the resolve of the Promise
-  return requestEmotion.then(obj => {
+  return requestEmotion.then( obj => {
+      obj.userRef = userRef;
+      obj.imageURL = urlImage;
       return obj;
   });
 
