@@ -8,8 +8,9 @@ var headers = {
 };
 
 var options = {
-  url: 'https://api.spotify.com/v1/recommendations?min_energy=&market=US&seed_tracks=0c6xIDDpzE81m2q797ordA&seed_artists=4NHQUGzhtTLFvgF5SZesLK&min_popularity=50',
+  //url: 'https://api.spotify.com/v1/recommendations?min_energy=&market=US&seed_tracks=0c6xIDDpzE81m2q797ordA&seed_artists=4NHQUGzhtTLFvgF5SZesLK&min_popularity=50',
   // url: 'https://api.spotify.com/v1/recommendations?min_energy=0.4&market=US&seed_tracks=0c6xIDDpzE81m2q797ordA&seed_artists=4NHQUGzhtTLFvgF5SZesLK&min_popularity=50',
+  url: "https://api.spotify.com/v1/recommendations?min_energy="+min_energy+"&market=US&min_danceability="+min_danceability+"&seed_genres="+seed_genres+"limit=10&max_energy="+max_energy+"&max_danceability="+max_danceability+"&min_popularity=66&max_speechiness=0.66&min_speechiness=0.33",
   headers: headers
 };
 
