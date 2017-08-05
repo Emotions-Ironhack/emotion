@@ -1,3 +1,13 @@
-<p>
-  emotion-list works!
-</p>
+<div>
+
+  <h2> User Emotions List </h2>
+
+
+  <div *ngFor="let emotion of emotions" class="emotion">
+    <div class="img-container">
+      <img src="{{ emotion.image_path }}" alt="{{ emotion.image_path }}">
+    </div>
+    <h3> {{ emotion.maxEmotion.name }} :  {{ emotion.maxEmotion.score }} </h3>
+    <a [routerLink]="['/emotion', emotion._id]"> View Detail </a>
+  </div>
+</div>

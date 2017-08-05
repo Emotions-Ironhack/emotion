@@ -1,6 +1,7 @@
 <div *ngIf="session.user">
   <pre>{{ session.user | json }}</pre>
   <a [routerLink]="['/new']">Add photo</a>
+  <a [routerLink]="['/emotion/user', session.user._id]">View Emotions List </a>
 </div>
 
 <div *ngIf="!session.user">

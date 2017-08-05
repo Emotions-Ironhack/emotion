@@ -1,24 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SessionService } from '../services/session.service';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
+import { FileSelectDirective } from "ng2-file-upload";
 
 // Routes
 import { RouterModule } from '@angular/router';
 import {routes} from './routes';
-// Route Guard
-import { LoggedInService } from '../services/loggedin.service';
 
+// services
+import { SessionService } from '../services/session.service';
+import { LoggedInService } from '../services/loggedin.service';
+import { EmotionService } from '../services/emotion.service';
+
+// components
 import { LoginFormComponent } from './login-form/login-form.component';
-import { FileSelectDirective } from "ng2-file-upload";
 import { AddPhotoEmotionComponent } from './add-photo-emotion/add-photo-emotion.component';
 import { EmotionListComponent } from './emotion-list/emotion-list.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserComponent } from './user/user.component';
 import { HomeComponent } from './home/home.component';
-
+import { EmotionSingleComponent } from './emotion-single/emotion-single.component';
 
 
 @NgModule({
@@ -30,7 +33,8 @@ import { HomeComponent } from './home/home.component';
     EmotionListComponent,
     SignupComponent,
     UserComponent,
-    HomeComponent
+    HomeComponent,
+    EmotionSingleComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,7 @@ import { HomeComponent } from './home/home.component';
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [SessionService, LoggedInService],
+  providers: [SessionService, LoggedInService, EmotionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

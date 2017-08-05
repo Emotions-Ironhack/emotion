@@ -35,11 +35,4 @@ export class AddPhotoEmotionComponent implements OnInit {
     this.uploader.uploadAll();
   }
 
-
-
-
-  // submit() {
-  //   this.uploader.uploadAll();
-  // }
-
 }

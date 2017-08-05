@@ -4,11 +4,13 @@ const visionService = require('../../config/vision');
 const emotionAux = require('./emotion.aux');
 const upload = require('../../config/multerService');
 
-// GET
-exports.listUserEmotionsHistory = function(req, res) {
+// EMOTIONS USER LIST
+exports.listUserEmotions = function(req, res) {
+
+  let userRef = req.params.userId;
 
   Emotion.find({
-      userRef: id
+      userRef: userRef
     }).exec()
     .then(list => {
       res.json(list);
@@ -18,59 +20,68 @@ exports.listUserEmotionsHistory = function(req, res) {
 };
 
 
+
+// EMOTION DETAIL
+exports.getEmotion = (req, res, next) => {
+
+  Emotion.findById(req.params.id).populate('userRef').exec()
+    .then((emotion, err) => {
+
+      if (err) return res.status(500).json(err);
+      if (!emotion) return res.status(404).json(new Error("404"));
+
+      return res.json(emotion);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+};
+
+
+
 // POST to VISION API -> THEN CREATE AND SAVE EMOTION */
 exports.createEmotion = function(req, res) {
 
   // function uploadTotal() {
-    let requestUpload = new Promise((resolve, reject) => {
-      upload(req, res, function(err) {
+  let requestUpload = new Promise((resolve, reject) => {
+    upload(req, res, function(err) {
 
-        let infoImage = {};
-        if (req.body.userRef) infoImage.userRef = req.body.userRef;
+      let infoImage = {};
+      if (req.body.userRef) infoImage.userRef = req.body.userRef;
 
-        if (req.file.filename) {
+      if (req.file.filename) {
 
-          // check if url is localhost
-          if(req.get('host').includes('localhost'))
-            infoImage.url = 'http://marioms.com/scarlet2.jpg';
-          else
-            infoImage.url = req.file.filename;
+        // check if url is localhost
+        if (req.get('host').includes('localhost'))
+          infoImage.url = 'http://marioms.com/scarlet2.jpg';
+        else
+          infoImage.url = req.file.filename;
 
-          resolve(infoImage);
+        resolve(infoImage);
 
-        } else {
-          reject( err => {
-            console.loog(err);
-            infoImage.url = "http://marioms.com/scarlet2.jpg";
-            return infoImage;
-          });
-        }
+      } else {
+        reject(err => {
+          console.loog('ERROR in Server createEmotion Reject: ',err);
+          infoImage.url = "http://marioms.com/scarlet2.jpg";
+          return infoImage;
+        });
+      }
 
-      });
+    });
 
-    }); // end promise
+  }); // end promise
 
   // 2 - Call to API Vision
   let visionPromise = new Promise((resolve, reject) => {
-
     // upload image THEN
-    requestUpload.then( infoImage => {
-
-      console.log('INFOIMAGE',infoImage);
-      // let objEmotion = {};
-      // objEmotion.scores = {};
-      // objEmotion.imageURL = infoImage.url;
-      // objEmotion.userRef = infoImage.userRef;
+    requestUpload.then(infoImage => {
       let objEmotion = visionService(infoImage.url, infoImage.userRef);
-
       resolve(objEmotion);
     });
   });
 
   // 3 - Create new emotion
-  visionPromise.then( objEmotion => {
-
-    console.log('object',objEmotion);
+  visionPromise.then(objEmotion => {
 
     let maxEmotionObj = emotionAux.getMaxEmotion(objEmotion[0].scores);
 
@@ -80,7 +91,8 @@ exports.createEmotion = function(req, res) {
       maxEmotion: maxEmotionObj,
       image_path: objEmotion.imageURL
     });
-    console.log('NEW EMOTION',newEmotion);
+
+    console.log('NEW EMOTION', newEmotion);
 
     emotionAux.saveEmotion(res, newEmotion);
   }).catch(err => console.log('Error visionPromise: ', err));

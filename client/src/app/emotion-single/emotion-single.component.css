@@ -2,15 +2,14 @@
   border: 1px solid #e6e6e6;
   border-radius: 7px;
   width: 25%;
-  /*margin:10px auto;*/
   padding: 10px;
   text-align: center;
 }
 
 .img-container {
-  width: 135px;
-  height: 289px;
-  margin: 30px 0;
+  width: 124px;
+  height: 292px;
+  margin: 0;
 }
 
 .img-container img {
