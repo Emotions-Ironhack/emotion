@@ -1,7 +1,7 @@
 <h1> Emotion detail </h1>
-    <a [routerLink]="['/emotion/user', emotion.userRef._id]"> Back to list </a>
 
 <div *ngIf="emotion"> <!-- IMPORTANT ngIF para que no de error hasta que no se resuelva la promesa -->
+  <a [routerLink]="['/emotion/user', emotion.userRef._id]"> Back to list </a>
   <div class="emotion-info">
     <h2> {{ emotion.maxEmotion.name }} : {{ emotion.maxEmotion.score }}</h2>
     <div class="img-container">
@@ -9,8 +9,20 @@
     </div>
     <p>USER: {{emotion.userRef.username }} - {{ emotion.userRef.email }} (NOTA: Igual esto no hace falta porque siempre va estar logueado para poder ver tus emotions</p>
     <p>CREATED AT: {{emotion.created_at}}</p>
-
-    JSON:
-    <p>{{emotion | json }}</p>
+    <br>
+    <button>Generate a Recommendation</button>
+    <br>
+    <p> JSON: {{emotion | json }}</p>
   </div>
 </div>
+
+
+<!-- If exists a recommendation show it -->
+
+<!-- // Pseudocodigo
+
+  <div *ngIf="recommendation">
+      <div *ngFor="let recommedationTrack of recommendation.music.tracks"></div>
+  </div>
+
+-->
