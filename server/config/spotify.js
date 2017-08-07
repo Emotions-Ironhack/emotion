@@ -4,12 +4,10 @@ var request = require('request');
 
 var headers = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQCqgEkelmUawKd2uBWgdGTu1sTTHZC_URQYrzzxEYzuVIUrzEHsKXGQWpv-0LRMhY26OiNpGCW6eADCqeu26JZKaAtP0PKqVNew49VRGEpc4v-15F72I-QfGxrW4TIJ5x5qqPYVRXsizAFfLc9_83fP0zKC3buiGI_ZwGuLRGvvz3FWfgM3G-ztyipSURQ47oWpZI-KB6fMl1MRLX-mrpEM9iowq0qnNhxNmYPU-YuLRIqprQtkzEboDogt-eBIpvKDwOWE2dZShqXSX51hA4n-A65J9t72GckV4nM7OADzRezbaoAWXUdY7NXyoxzqSQ'
+  'Authorization': 'Bearer BQAstTEebVopl6jl7Yfr4mRXwIb8BS9eO_ROzQ_86l6JTqi55h2kgtHZyMYOw6aqO8o2n-RLkG7rdlFjGRBXBvyBNktopE1sP3qD-eIf101al0WYTanmSxlhyZkVmPvEWbrxSTsZZwksjFbwgMvbHjxeRLR0Oak5NEYZmN-l1BC6N9WFj1cVrThQmra_IFaN4seZUcBhJDYrY0RhrCDg6jp2tnRAX38kFNDs7xODQKl15p_fd8pL07oZAL_0JP-6umASg9VW7gDsR5gQi_NJieESWmVby4NsI4xXq5BN7NSLRo5y1T3BdOvhrldIueSgpg'
 };
 
 var options = {
-  // url: 'https://api.spotify.com/v1/recommendations?min_energy=0.4&market=US&seed_tracks=0c6xIDDpzE81m2q797ordA&seed_artists=4NHQUGzhtTLFvgF5SZesLK&min_popularity=50',
-  // url: "https://api.spotify.com/v1/recommendations?min_energy="+min_energy+"&market=US&min_danceability="+min_danceability+"&seed_genres="+seed_genres+"limit=10&max_energy="+max_energy+"&max_danceability="+max_danceability+"&min_popularity=66&max_speechiness=0.66&min_speechiness=0.33",
   url : urlParam,
   headers: headers
 };
@@ -17,14 +15,13 @@ var options = {
 let requestRecomm = new Promise((resolve, reject) => {
   request(options, function (error, response, body) {
 
-      console.log('BODYY ',body);
+      // console.log('BODYY ',body);
 
       if (!error && response.statusCode == 200) {
         var obj = JSON.parse(body);
         resolve(obj);
       }else{
         reject( err => console.log('ERROR reject in request RECOMMENDATION promise: ', err));
-        console.log('ERROR: ',error);
       }
     });
 });
