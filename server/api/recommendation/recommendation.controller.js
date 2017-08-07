@@ -3,10 +3,11 @@ const Recommendation = require("./Recommendation");
 const Emotion = require("../emotion/Emotion");
 const EmotionDic = require("../emotion-dic/emotionSchema");
 const spotifyService = require('../../config/spotify');
+const recommendationAux = require('./recommendation.aux');
 
 
-// RECOMMENDATIONS FOR A EMOTION ID. User can generate some recommendations for a the same Emotion ID
-exports.listRecommendations = function(req, res) {
+// RECOMMENDATIONS FOR A EMOTION ID.
+exports.listRecommendations = (req, res) => {
   let emotionRef = req.params.id;
   Recommendation.find({ emotionRef: req.params.id })
     .then(list => { res.json(list); })
@@ -14,7 +15,7 @@ exports.listRecommendations = function(req, res) {
 };
 
 // RECOMMMENTAIL DETAIL
-exports.getRecommendation = (req, res, next) => {
+exports.getRecommendation = (req, res) => {
   Recommendation.findById(req.params.id).populate('emontionRef').exec()
     .then((recommendation) => { return res.json(recommendation); })
     .catch(err => { res.status(500).json(err); });
@@ -50,9 +51,12 @@ exports.createRecommendation = (req, res) => {
 
   // 4 THEN spotifyPromise -> we can create new Recommendation and Save it
   spotifyPromise.then(objPlayList => {
+
+    let playList = recommendationAux.getDataSpotify(objPlayList);
+
     const newRecommendation = new Recommendation({
       emotionRef: emotionId,
-      recommendations: objPlayList
+      recommendations: playList
     });
 
     newRecommendation.save()

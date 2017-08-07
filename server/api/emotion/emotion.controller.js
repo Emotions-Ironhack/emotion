@@ -5,7 +5,7 @@ const emotionAux = require('./emotion.aux');
 const upload = require('../../config/multerService');
 
 // EMOTIONS USER LIST
-exports.listUserEmotions = function(req, res) {
+exports.listUserEmotions = (req, res)=> {
 
   let userRef = req.params.userId;
 
@@ -22,7 +22,7 @@ exports.listUserEmotions = function(req, res) {
 
 
 // EMOTION DETAIL
-exports.getEmotion = (req, res, next) => {
+exports.getEmotion = (req, res) => {
 
   Emotion.findById(req.params.id).populate('userRef').exec()
     .then((emotion, err) => {
@@ -40,7 +40,7 @@ exports.getEmotion = (req, res, next) => {
 
 
 // POST to VISION API -> THEN CREATE AND SAVE EMOTION */
-exports.createEmotion = function(req, res) {
+exports.createEmotion = (req, res)=> {
 
   // function uploadTotal() {
   let requestUpload = new Promise((resolve, reject) => {
@@ -49,7 +49,7 @@ exports.createEmotion = function(req, res) {
       let infoImage = {};
       if (req.body.userRef) infoImage.userRef = req.body.userRef;
 
-      if (req.file.filename) {
+      if (req.file) {
 
         // check if url is localhost
         console.log('HOSTNAME: ',req.get('host'));
