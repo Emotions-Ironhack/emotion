@@ -41,16 +41,11 @@ exports.createRecommendation = (req, res) => {
 
 
   // 3 Call to spotify service with params
-  let spotifyPromise = new Promise((resolve, reject) => {
-    emotionRefPromise.then(emotParams => {                          // 3.1 When emotionParams is resolved call to spotify API
-      let objPlayList = spotifyService(emotParams[0].urlParam);     // 3.2 Call to spotify SERVICE when emotionRed
-      resolve(objPlayList);
-    });
-
-  });
-
-  // 4 THEN spotifyPromise -> we can create new Recommendation and Save it
-  spotifyPromise.then(objPlayList => {
+  emotionRefPromise
+    .then(emotParams => emotParams[0].urlParam ) // return a promise
+    .then(url => spotifyService(url))
+    .then(objPlayList => {
+      console.log(objPlayList);
 
     let playList = recommendationAux.getDataSpotify(objPlayList);
 
@@ -68,5 +63,8 @@ exports.createRecommendation = (req, res) => {
         });
       })
       .catch(e => res.status(500).json(e));
+  })
+  .catch(err => {
+    console.log(err);
   });
 };

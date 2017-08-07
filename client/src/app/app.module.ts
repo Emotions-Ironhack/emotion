@@ -13,6 +13,7 @@ import {routes} from './routes';
 import { SessionService } from '../services/session.service';
 import { LoggedInService } from '../services/loggedin.service';
 import { EmotionService } from '../services/emotion.service';
+import { RecommendationService } from '../services/recommendation.service';
 
 // components
 import { LoginFormComponent } from './login-form/login-form.component';
@@ -22,6 +23,8 @@ import { SignupComponent } from './signup/signup.component';
 import { UserComponent } from './user/user.component';
 import { HomeComponent } from './home/home.component';
 import { EmotionSingleComponent } from './emotion-single/emotion-single.component';
+import { RecommedationListComponent } from './recommedation-list/recommedation-list.component';
+import { RecommendationSingleComponent } from './recommendation-single/recommendation-single.component';
 
 
 @NgModule({
@@ -34,7 +37,9 @@ import { EmotionSingleComponent } from './emotion-single/emotion-single.componen
     SignupComponent,
     UserComponent,
     HomeComponent,
-    EmotionSingleComponent
+    EmotionSingleComponent,
+    RecommedationListComponent,
+    RecommendationSingleComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,7 @@ import { EmotionSingleComponent } from './emotion-single/emotion-single.componen
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [SessionService, LoggedInService, EmotionService],
+  providers: [SessionService, LoggedInService, EmotionService, RecommendationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

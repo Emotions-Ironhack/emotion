@@ -1,35 +1,42 @@
-module.exports = function spotify(urlParam) {
+const got = require('got');
+const SpotifyWebApi = require('spotify-web-api-node');
 
-var request = require('request');
-
-var headers = {
-  'Accept': 'application/json',
-  'Authorization': 'Bearer BQBrRwBHnhsdCt9hu3h-deg_12_-XmFlgKym1eiTLT3uI66MkJTiPvdnYc7X7LP1d8cT9CUeY8WHjzzIKDpKqxTNOF_18BIVTkPAHLNNnCRbHdQfVSJlGORDlzQ-44zpoFP8kr6mnVfCzh8NA7BJhAUc29H3sCAhGyCcymNDRwU7D9aLhphYXXkwqMlFqXzfYuS5QDiGw58HpyrCfcpBcoynba0-LZ4_EO05QM5adRcl5xFEeAApFW1NclZzN44zMs-Zn8HoB_dsoo9QCElQ4rX2b8PGzJW8_U-gc0ttWjIqFXeXDaQJ9PehV085t5K8QA'
-};
-
-var options = {
-  url : urlParam,
-  headers: headers
-};
-
-let requestRecomm = new Promise((resolve, reject) => {
-  request(options, function (error, response, body) {
-
-      console.log('BODY ',body);
-
-      if (!error && response.statusCode == 200) {
-        var obj = JSON.parse(body);
-        resolve(obj);
-      }else{
-        reject( err => console.log('ERROR reject in request RECOMMENDATION promise: ', err));
-      }
-    });
-});
-
-// It is neccessary RETURN the resolve of the Promise
-return requestRecomm.then(obj => {
-    return obj;
-});
+const SPOTIFY_TOKEN_LIFETIME_MS = 1000 * 60 * 10;
+const checkIsTokenIsValid = (tokenTimestamp) => Date.now() - tokenTimestamp < SPOTIFY_TOKEN_LIFETIME_MS;
 
 
-};
+function getSpotifyToken() {
+  return new SpotifyWebApi({
+      clientId: '6e4f11d0909b4adbaa7563e22e60a67f',
+      clientSecret: '3055782225884d6995469b4239c28022',
+      redirectUri: ''
+    })
+    .clientCredentialsGrant();
+}
+
+
+function getSpotifyData(urlParam) {
+  return got(urlParam, {
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    json:true
+  });
+}
+
+
+function spotify(urlParam) {
+  const isTokenValid = checkIsTokenIsValid(this.tokenTimestamp);
+  if (isTokenValid) return getSpotifyData(urlParam, this.token);
+
+  return getSpotifyToken()
+    .then(data => {
+      this.token = data.body.access_token;
+      this.tokenTimestamp = Date.now();
+      return getSpotifyData(urlParam);
+    })
+    .then(response => response.body);
+}
+
+module.exports = spotify;
