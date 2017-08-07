@@ -68,7 +68,7 @@ const EmotionDic = [
   {
     emotion_name: "happiness",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.5&market=US&min_danceability=0.1&seed_genres=pop,rock,dance,indie,reaggeton&limit=10&max_energy=0.9&max_danceability=1&min_popularity=50",
-    movies_genresId: [{
+    movies_genres: [{
         id: 9648,
         name: "Mystery"
       }, {
