@@ -1,5 +1,15 @@
-<h1> recommendation detail </h1>
+<h1> Recommendations View is here</h1>
 
-<div *ngIf="recommendation"> <!-- IMPORTANT ngIF para que no de error hasta que no se resuelva la promesa -->
-    <p> JSON: {{recommendation | json }}</p>
+<div *ngIf="recommendation">
+  <h1> Recommendation</h1>
+  <h3>Created at: {{recommendation.created_at}}</h3>
+  <div *ngFor="let track of recommendation.recommendations" class="recomm-container">
+    <h3>{{track.trackName}}</h3>
+    <div class="img-container"><img src="{{track.artistUrlImg}}" alt="{{track.artistUrlImg}}"></div>
+    <span><a href="{{track.linkUrl}}" target="_blank">Link to spotify</a></span>
+    <p>{{track.previewUrl}}</p>
+  </div>
 </div>
+
+<p> JSON: {{ recommendation | json }}</p>
+<div>sadsadsadsad</div>

@@ -12,16 +12,25 @@ export class RecommendationService{
 
   constructor(private http: Http) { }
 
-  getUserRecommendations(userId) {
-    return this.http.get(`${this.BASE_URL}/api/emotion/user/${userId}`)
+
+  getEmotionRecommendations(emotionId) {
+    return this.http.get(`${this.BASE_URL}/api/emotion/${emotionId}/recommendations`)
       .map((res) => {
         console.log(res.json());
         return res.json();
        });
   }
 
+  createRecommendation(emotionId) {
+    return this.http.get(`${this.BASE_URL}/api/emotion/${emotionId}/new-recommendation`)
+      .map((res) => {
+        return res.json();
+       });
+  }
+
   getRecommendation(id) {
-     return this.http.get(`${this.BASE_URL}/api/emotion/${id}`)
+     return this.http.get(`${this.BASE_URL}/api/recommendation/${id}`)
        .map((res:Response) => { return res.json() });   // return Observable<response>
   }
+
 }

@@ -17,3 +17,9 @@
   height: auto;
   margin: 50px auto 0 auto;
 }
+
+.recomm-container{
+  border: 2px solid #e6e6e6;
+  padding: 10px;
+  margin: 20px;
+}

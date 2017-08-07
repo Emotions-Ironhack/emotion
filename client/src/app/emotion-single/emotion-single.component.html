@@ -1,6 +1,7 @@
-<h1> Emotion detail </h1>
+<h1> Emotion </h1>
 
-<div *ngIf="emotion"> <!-- IMPORTANT ngIF para que no de error hasta que no se resuelva la promesa -->
+<div *ngIf="emotion">
+  <!-- IMPORTANT ngIF para que no de error hasta que no se resuelva la promesa -->
   <a [routerLink]="['/emotion/user', emotion.userRef._id]"> Back to list </a>
   <div class="emotion-info">
     <h2> {{ emotion.maxEmotion.name }} : {{ emotion.maxEmotion.score }}</h2>
@@ -10,19 +11,24 @@
     <p>USER: {{emotion.userRef.username }} - {{ emotion.userRef.email }} (NOTA: Igual esto no hace falta porque siempre va estar logueado para poder ver tus emotions</p>
     <p>CREATED AT: {{emotion.created_at}}</p>
     <br>
-    <button>Generate a Recommendation</button>
+    <button (click)="createEmotionRecomm()">Generate a Recommendation</button>
     <br>
     <p> JSON: {{emotion | json }}</p>
   </div>
 </div>
 
+<!-- <app-recommendation-single></app-recommendation-single> -->
 
-<!-- If exists a recommendation show it -->
-
-<!-- // Pseudocodigo
-
-  <div *ngIf="recommendation">
-      <div *ngFor="let recommedationTrack of recommendation.music.tracks"></div>
+<div *ngIf="recommendation">
+  <h1> Recommendation</h1>
+  <h3>Created at: {{recommendation.created_at}}</h3>
+  <div *ngFor="let track of recommendation.recommendations" class="recomm-container">
+    <h3>{{track.trackName}}</h3>
+    <div class="img-container"><img src="{{track.artistUrlImg}}" alt="{{track.artistUrlImg}}"></div>
+    <span><a href="{{track.linkUrl}}" target="_blank">Link to spotify</a></span>
+    <p>{{track.previewUrl}}</p>
   </div>
+</div>
 
--->
+
+<p> JSON: {{ recommendation | json }}</p>
