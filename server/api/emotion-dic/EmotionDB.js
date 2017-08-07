@@ -20,7 +20,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: contempt,
+    emotions: "contempt",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.3&market=US&min_danceability=0.1&seed_genres=dance,club,house,grunge,romance&limit=10&max_energy=0.8&max_danceability=1&min_popularity=50",
     movies_genres: [{
       id: 35,
@@ -35,7 +35,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: disgust,
+    emotions: "disgust",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.1&market=US&min_danceability=0.1&seed_genres=piano,trip-hop,jazz,classical,indie&limit=10&max_energy=0.5&max_danceability=1&min_popularity=50",
     movies_genres: [{
         id: 18,
@@ -50,7 +50,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: fear,
+    emotions: "fear",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.1&market=US&min_danceability=0.1&seed_genres=reggae,sleep,soul,disco,pop&limit=10&max_energy=0.5&max_danceability=1&min_popularity=50",
     movies_genres: [{
         id: 36,
@@ -65,7 +65,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: happiness,
+    emotions: "happiness",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.5&market=US&min_danceability=0.1&seed_genres=pop,rock,dance,indie,reaggeton&limit=10&max_energy=0.9&max_danceability=1&min_popularity=50",
     movies_genresId: [{
         id: 9648,
@@ -80,7 +80,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: neutral,
+    emotions: "neutral",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.1&market=US&min_danceability=0.5&seed_genres=rock,dance,hip-hop,disco,pop&limit=10&max_energy=1&max_danceability=1&min_popularity=50",
     movies_genres: [{
         id: 10770,
@@ -98,7 +98,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: sadness,
+    emotions: "sadness",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.4&market=US&min_danceability=0.3&seed_genres=rock,pop,chill,movies,indie&limit=10&max_energy=1&max_danceability=1&min_popularity=50",
     movies_genres: [{
         id: 53,
@@ -110,7 +110,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: surprise,
+    emotions: "surprise",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.1&market=US&min_danceability=0.1&seed_genres=dance,party,road-trip,hip-hop,chicago-house&limit=10&max_energy=0.5&max_danceability=1&min_popularity=50",
     movies_genres: [{
         id: 35,
