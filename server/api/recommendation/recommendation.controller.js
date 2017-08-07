@@ -35,18 +35,28 @@ exports.getRecommendation = (req, res, next) => {
 /* POST CREATE AND SAVE Recommendation*/
 exports.createRecommendation = function(req, res) {
 
-  // 1 getEmotionRef  IS THE SAME FUNCTION IN Emotion.controller REFACTOR
-  let emotionRefPromise = Emotion.findById(req.params.id).populate('userRef').exec();
+  // 1 getEmotionRef IS THE SAME FUNCTION IN Emotion.controller REFACTOR
+  let emotionRefPromise = new Promise( (resolve ,reject) => {
 
-  emotionRefPromise.then((emotion, err) => {
+    let emotionId = req.params.id;
 
-    if (err) return res.status(500).json(err);
-    if (!emotion) return res.status(404).json(new Error("404"));
+    Emotion.findById(emotionId).populate('userRef').exec()
+      .then((emotion, err) => {
 
-    // NO BORRAR 2 Get Dictionary params PROMISE
-    // emotion.maxEmotion = 'happiness';
-    // let emotionParams = EmotionDic.find({ emotion: emotion.maxEmotion }).exex();
+      if (err) return res.status(500).json(err);
+      if (!emotion) return res.status(404).json(new Error("404"));
 
+      let infoEmotion = {};
+      infoEmotion.id = emotionId;
+      infoEmotion.maxEmotion = emotion.maxEmotion.name;
+
+      // 2 Get Dictionary params PROMISE
+      EmotionDic.find({emotion_name: infoEmotion.maxEmotion }).exec()
+        .then( (emotParams, err) => {
+          if(err) return console.log('ERROR EmotionDic find',err);
+          resolve(emotParams);
+        });
+    });
   });
 
 
@@ -54,27 +64,24 @@ exports.createRecommendation = function(req, res) {
   let spotifyPromise = new Promise((resolve, reject) => {
 
     // 3.1 When emotionParams is resolved call to spotify API
-    // NO BORRRAR emotionParams.then(emotParams => {
-      // TODO must return full URL
-      let urlParm = 'https://api.spotify.com/v1/recommendations?min_energy=0.4&limit=5&market=US&seed_tracks=0c6xIDDpzE81m2q797ordA&seed_artists=4NHQUGzhtTLFvgF5SZesLK&min_popularity=50';
+    emotionRefPromise.then( emotParams => {
+      console.log('IN SPOTIFY PROMISE: ', emotParams);
 
       // 3.2 Call to spotify SERVICE when emotionRed
-      let objPlayList = spotifyService(urlParm);
+      let objPlayList = spotifyService(emotParams[0].urlParam);
       resolve(objPlayList);
     });
 
-  // });
+  });
 
 
   // 4 THEN spotifyPromise -> we can create new Recommendation and Save it
   spotifyPromise.then( objPlayList => {
     // res.json(objPlayList);
-    console.log('objPlayList ',objPlayList);
 
     const newRecommendation = new Recommendation({
       emotionRef: '5985a89f17dde40b9d9048bf' || req.params.emotionId,
       recommendations: objPlayList
-
     });
 
     console.log('newRecommendation ',newRecommendation);
