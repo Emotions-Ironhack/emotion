@@ -4,7 +4,7 @@ var request = require('request');
 
 var headers = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQAstTEebVopl6jl7Yfr4mRXwIb8BS9eO_ROzQ_86l6JTqi55h2kgtHZyMYOw6aqO8o2n-RLkG7rdlFjGRBXBvyBNktopE1sP3qD-eIf101al0WYTanmSxlhyZkVmPvEWbrxSTsZZwksjFbwgMvbHjxeRLR0Oak5NEYZmN-l1BC6N9WFj1cVrThQmra_IFaN4seZUcBhJDYrY0RhrCDg6jp2tnRAX38kFNDs7xODQKl15p_fd8pL07oZAL_0JP-6umASg9VW7gDsR5gQi_NJieESWmVby4NsI4xXq5BN7NSLRo5y1T3BdOvhrldIueSgpg'
+  'Authorization': 'Bearer BQBrRwBHnhsdCt9hu3h-deg_12_-XmFlgKym1eiTLT3uI66MkJTiPvdnYc7X7LP1d8cT9CUeY8WHjzzIKDpKqxTNOF_18BIVTkPAHLNNnCRbHdQfVSJlGORDlzQ-44zpoFP8kr6mnVfCzh8NA7BJhAUc29H3sCAhGyCcymNDRwU7D9aLhphYXXkwqMlFqXzfYuS5QDiGw58HpyrCfcpBcoynba0-LZ4_EO05QM5adRcl5xFEeAApFW1NclZzN44zMs-Zn8HoB_dsoo9QCElQ4rX2b8PGzJW8_U-gc0ttWjIqFXeXDaQJ9PehV085t5K8QA'
 };
 
 var options = {
@@ -15,7 +15,7 @@ var options = {
 let requestRecomm = new Promise((resolve, reject) => {
   request(options, function (error, response, body) {
 
-      // console.log('BODYY ',body);
+      console.log('BODY ',body);
 
       if (!error && response.statusCode == 200) {
         var obj = JSON.parse(body);
