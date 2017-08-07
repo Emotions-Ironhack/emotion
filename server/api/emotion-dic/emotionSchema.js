@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 
 const EmotionDicSchema = new Schema({
 
-emotions: Array,
+emotion_name: String,
+urlParam: String,
+movies_genres: Array
+
 
 });
 

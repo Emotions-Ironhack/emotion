@@ -4,7 +4,8 @@ const Dictionary = require('./emotionSchema');
 // {Object[0]} ==> Music {Object[1]}==> Films
 mongoose.connect(`mongodb://localhost/emotions`);
 
-const EmotionDic = [{
+const EmotionDic = [
+  {
     emotion_name: "anger",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.1&market=US&min_danceability=0.1&seed_genres=piano,classical,chill,sleep,study&limit=10&max_energy=0.5&max_danceability=0.5&min_popularity=50",
     movies_genres: [{
@@ -20,7 +21,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: "contempt",
+    emotion_name: "contempt",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.3&market=US&min_danceability=0.1&seed_genres=dance,club,house,grunge,romance&limit=10&max_energy=0.8&max_danceability=1&min_popularity=50",
     movies_genres: [{
       id: 35,
@@ -35,7 +36,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: "disgust",
+    emotion_name: "disgust",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.1&market=US&min_danceability=0.1&seed_genres=piano,trip-hop,jazz,classical,indie&limit=10&max_energy=0.5&max_danceability=1&min_popularity=50",
     movies_genres: [{
         id: 18,
@@ -50,7 +51,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: "fear",
+    emotion_name: "fear",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.1&market=US&min_danceability=0.1&seed_genres=reggae,sleep,soul,disco,pop&limit=10&max_energy=0.5&max_danceability=1&min_popularity=50",
     movies_genres: [{
         id: 36,
@@ -65,7 +66,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: "happiness",
+    emotion_name: "happiness",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.5&market=US&min_danceability=0.1&seed_genres=pop,rock,dance,indie,reaggeton&limit=10&max_energy=0.9&max_danceability=1&min_popularity=50",
     movies_genresId: [{
         id: 9648,
@@ -80,7 +81,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: "neutral",
+    emotion_name: "neutral",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.1&market=US&min_danceability=0.5&seed_genres=rock,dance,hip-hop,disco,pop&limit=10&max_energy=1&max_danceability=1&min_popularity=50",
     movies_genres: [{
         id: 10770,
@@ -98,7 +99,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: "sadness",
+    emotion_name: "sadness",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.4&market=US&min_danceability=0.3&seed_genres=rock,pop,chill,movies,indie&limit=10&max_energy=1&max_danceability=1&min_popularity=50",
     movies_genres: [{
         id: 53,
@@ -110,7 +111,7 @@ const EmotionDic = [{
   },
 
   {
-    emotions: "surprise",
+    emotion_name: "surprise",
     urlParam: "https://api.spotify.com/v1/recommendations?min_energy=0.1&market=US&min_danceability=0.1&seed_genres=dance,party,road-trip,hip-hop,chicago-house&limit=10&max_energy=0.5&max_danceability=1&min_popularity=50",
     movies_genres: [{
         id: 35,
