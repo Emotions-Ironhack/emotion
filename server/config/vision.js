@@ -1,3 +1,5 @@
+const { VISION_KEY } = process.env;
+
 module.exports = function(urlImage,userRef) {
 
   var request = require('request');
