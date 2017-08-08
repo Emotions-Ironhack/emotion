@@ -28,10 +28,14 @@ function getSpotifyData(urlParam) {
 
 function spotify(urlParam) {
   const isTokenValid = checkIsTokenIsValid(this.tokenTimestamp);
-  if (isTokenValid) return getSpotifyData(urlParam, this.token);
+  // if (isTokenValid){
+  //   console.log('isTokenValid is TRUE');
+  //   return getSpotifyData(urlParam);
+  // }
 
   return getSpotifyToken()
     .then(data => {
+      console.log('getSpotifyToken----', data.body.access_token);
       this.token = data.body.access_token;
       this.tokenTimestamp = Date.now();
       return getSpotifyData(urlParam);
