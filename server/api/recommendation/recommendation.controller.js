@@ -58,9 +58,9 @@ exports.createRecommendation = (req, res) => {
   emotionRefPromise
     .then(emotParams => emotParams[0].urlParam) // return a promise
     .then(url => spotifyService(url))
-    .then(objPlayList => {
+    .then( objPlayList => {
 
-      let playList = recommendationAux.getDataSpotify(objPlayList);
+      let playList = recommendationAux.filterSpotify(objPlayList);
 
       const newRecommendation = new Recommendation({
         emotionRef: emotionId,

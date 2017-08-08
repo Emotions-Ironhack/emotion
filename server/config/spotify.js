@@ -1,3 +1,4 @@
+const {SPOTIFY_CLIENT, SPOTIFY_SECRET} = process.env;
 const got = require('got');
 const SpotifyWebApi = require('spotify-web-api-node');
 
@@ -7,8 +8,8 @@ const checkIsTokenIsValid = (tokenTimestamp) => Date.now() - tokenTimestamp < SP
 
 function getSpotifyToken() {
   return new SpotifyWebApi({
-      clientId: '6e4f11d0909b4adbaa7563e22e60a67f',
-      clientSecret: '3055782225884d6995469b4239c28022',
+      clientId: SPOTIFY_CLIENT,
+      clientSecret: SPOTIFY_SECRET,
       redirectUri: ''
     })
     .clientCredentialsGrant();
@@ -19,21 +20,26 @@ function getSpotifyData(urlParam) {
   return got(urlParam, {
     headers: {
       'Accept': 'application/json',
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${cachedToken}`
     },
     json:true
   });
 }
 
+let cachedToken;
+let tokenTimestamp;
+
 
 function spotify(urlParam) {
-  const isTokenValid = checkIsTokenIsValid(this.tokenTimestamp);
-  if (isTokenValid) return getSpotifyData(urlParam, this.token);
+  const isTokenValid = checkIsTokenIsValid(cachedToken);
+  if (isTokenValid){
+    return getSpotifyData(urlParam);
+  }
 
   return getSpotifyToken()
     .then(data => {
-      this.token = data.body.access_token;
-      this.tokenTimestamp = Date.now();
+      cachedToken = data.body.access_token;
+      tokenTimestamp = Date.now();
       return getSpotifyData(urlParam);
     })
     .then(response => response.body);
