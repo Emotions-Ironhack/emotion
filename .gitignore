@@ -31,3 +31,6 @@ npm-debug.log
 
 # Ds store
 .DS_Store
+
+#env
+.env

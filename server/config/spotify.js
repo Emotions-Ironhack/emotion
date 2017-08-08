@@ -7,8 +7,8 @@ const checkIsTokenIsValid = (tokenTimestamp) => Date.now() - tokenTimestamp < SP
 
 function getSpotifyToken() {
   return new SpotifyWebApi({
-      clientId: '6e4f11d0909b4adbaa7563e22e60a67f',
-      clientSecret: '3055782225884d6995469b4239c28022',
+      clientId: SPOTIFY_CLIENT,
+      clientSecret: SPOTIFY_SECRET,
       redirectUri: ''
     })
     .clientCredentialsGrant();

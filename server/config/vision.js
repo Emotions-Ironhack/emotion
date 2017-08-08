@@ -4,7 +4,7 @@ module.exports = function(urlImage,userRef) {
 
   var headers = {
     'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': 'e1db3facd5f9497d8da470ad49545477'
+    'Ocp-Apim-Subscription-Key': VISION_KEY
   };
 
   var options = {
